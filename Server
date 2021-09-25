@@ -1,0 +1,28 @@
+import socket
+from time import gmtime, strftime
+import random
+server_socket = socket.socket()
+server_socket.bind(("0.0.0.0", 8820))
+server_socket.listen()
+print("Server is up and running")
+(client_socket, client_address) = server_socket.accept()
+print("Client connected")
+
+name = client_socket.recv(1024).decode()
+client_socket.send("My name is Hello".encode())
+print("Client sent: " + name)
+
+WhatTime = client_socket.recv(1024).decode()
+print("Client sent: " + WhatTime)
+client_socket.send("My time is ".encode())
+time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+client_socket.send(time.encode())
+
+NumberQuestion = client_socket.recv(1024).decode()
+print("Client sent:" + NumberQuestion)
+client_socket.send("My Number is ".encode())
+
+Number1 = str(random.randint(1,10))
+client_socket.send(Number1.encode())
+client_socket.close()
+server_socket.close()
