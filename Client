@@ -2,18 +2,39 @@ import socket
 
 my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 my_socket.connect(("127.0.0.1", 8820))
+
+# Asking the server for his name
 my_socket.send("What is your name?".encode())
+
+# Getting answer from server
 nameOfServer = my_socket.recv(1024).decode()
+
+# printing the answer of the server
 print("The server sent: " + nameOfServer)
+
+# Asking the server for its time
 my_socket.send("What is your time?".encode())
+
+# Getting answer from server (my time is)
 myTime = my_socket.recv(1024).decode()
+
+# Getting answer from server (its current time)
 timeOfServer = my_socket.recv(1024).decode()
+
+# printing the answer of the server
 print("The server sent: " + myTime + timeOfServer)
+
+# Asking the server to choose a number from 1 to 10
 my_socket.send("Enter a number from 1 to 10".encode())
+
+# Getting answer from server (my number is)
 number = my_socket.recv(1024).decode()
-# Number1 = random.randint(1,10)
-# MyNumber = my_socket.recv(1024).decode()
+
+# Getting answer from server (the number that the server chose)
 MyNumber = my_socket.recv(1024).decode()
+
+# printing the number that the server chose
 print("The server sent: My number is " + MyNumber)
-# print(Number1)
+
+# Closing the socket
 my_socket.close()
