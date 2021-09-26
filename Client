@@ -1,6 +1,9 @@
 import socket
 
+# Creating an object from socket type that gets the parameters AF_INET (it means using IP protocol) and SOCK_STREAM (it means using TCP protocol) 
 my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Connecting to the server with an IP address (127.0.0.1) and a port (8820)
 my_socket.connect(("127.0.0.1", 8820))
 
 # Asking the server for his name
