@@ -1,28 +1,58 @@
 import socket
 from time import gmtime, strftime
 import random
+# Creating an object from socket type
 server_socket = socket.socket()
+
+# Binding the IP address to a port
 server_socket.bind(("0.0.0.0", 8820))
+
+# Listening in order to get connections from clients
 server_socket.listen()
+
 print("Server is up and running")
+
+# Accepting requests from clients
 (client_socket, client_address) = server_socket.accept()
+
 print("Client connected")
 
+# Receiving messages from clients(the message includes the name of the client)
 name = client_socket.recv(1024).decode()
+
+# Sending a message back to the client
 client_socket.send("My name is Hello".encode())
+
 print("Client sent: " + name)
 
+# Receiving messages from clients(the message includes the time of the client)
 WhatTime = client_socket.recv(1024).decode()
 print("Client sent: " + WhatTime)
+
+# Sending a message back to the client
 client_socket.send("My time is ".encode())
+
 time = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+
+# Sending a message back to the client
 client_socket.send(time.encode())
 
+# Receiving messages from clients
 NumberQuestion = client_socket.recv(1024).decode()
+
 print("Client sent:" + NumberQuestion)
+
+# Sending a message back to the client
 client_socket.send("My Number is ".encode())
 
+# Choosing a random number
 Number1 = str(random.randint(1,10))
+
+# Sending a message back to the client
 client_socket.send(Number1.encode())
+
+# Closing the client's socket
 client_socket.close()
+
+# Closing the server's socket
 server_socket.close()
